@@ -1,0 +1,40 @@
+inherit_from:
+  - .rubocop_rails.yml
+  - .rubocop_rspec.yml
+
+inherit_mode:
+  merge:
+    - Exclude
+
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - vendor/**/*
+    - db/migrate/*
+    - db/schema.rb
+    - bin/bundle
+
+Layout/LineLength:
+  Max: 150
+  Exclude:
+    - config/**/*
+
+Metrics/BlockLength:
+  Exclude:
+    - config/**/*
+    - spec/**/*
+    - lib/tasks/auto_annotate_models.rake
+    - app/admin/**/*
+
+Style/BlockDelimiters:
+  EnforcedStyle: braces_for_chaining
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false

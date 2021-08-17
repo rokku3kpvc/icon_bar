@@ -1,0 +1,16 @@
+common: &default
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  reconnect: true
+  prepared_statements: false
+  port: 5432
+
+test:
+  <<: *default
+  database: icon_bar_test
+
+development:
+  <<: *default
+  database: icon_bar_development
+  pool: 5

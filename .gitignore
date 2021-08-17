@@ -1,0 +1,39 @@
+# -- Configuration Files -- #
+/.idea
+/.bundle
+/coverage
+/tmp/
+/storage/*
+.project
+.vagrant/
+.yardoc
+config/database.yml
+config/settings.local.yml
+config/settings/development.local.yml
+tags
+config/settings/*.local.yml
+config/environments/*.local.yml
+/config/database.yml
+Vagrantfile
+
+# -- Logfiles and Tempfiles -- #
+/log/
+.byebug_history
+.rake_tasks~
+.rakeTasks
+/stages/*/builds/
+/stages/*/tmp/
+.build-meta
+.ruby-gemset
+db/postgres_schema\.rb
+db/postgres_structure.sql
+
+# -- Uploaded Development Files -- #
+public/api.html
+public/uploads/
+
+# -- Secrets -- #
+/config/master.key
+/config/credentials/production.key
+/config/credentials/staging.key
+k8s/helm/secrets/*
