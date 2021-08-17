@@ -37,3 +37,5 @@ public/uploads/
 /config/credentials/production.key
 /config/credentials/staging.key
 k8s/helm/secrets/*
+
+/config/credentials/test.key

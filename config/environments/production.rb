@@ -10,8 +10,6 @@ Rails.application.configure do
   config.log_level = :info
   config.log_tags = [:request_id]
 
-  config.i18n.fallbacks = true
-
   config.active_support.deprecation = :notify
   config.active_support.disallowed_deprecation = :log
   config.active_support.disallowed_deprecation_warnings = []
@@ -25,4 +23,6 @@ Rails.application.configure do
   end
 
   config.active_record.dump_schema_after_migration = false
+
+  # routes.default_url_options = { host: 'http://0.0.0.0:3000', protocol: 'http' }
 end

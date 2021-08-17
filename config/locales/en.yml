@@ -1,2 +1,5 @@
 en:
-  hello: "Hello world"
+  telegram_bot:
+    webhooks:
+      ping:
+        content: Pong!

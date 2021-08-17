@@ -8,7 +8,8 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 
 require 'webmock/rspec'
 require 'rspec/rails'
-require 'sidekiq/testing'
+require 'telegram/bot/rspec/integration/rails'
+require 'telegram/bot/updates_controller/rspec_helpers'
 
 WebMock.disable_net_connect!
 
@@ -26,6 +27,7 @@ RSpec.configure do |config|
 
   config.order = :random
   config.fixture_path = Rails.root.join('spec/fixtures')
+  config.use_transactional_fixtures = true
   config.shared_context_metadata_behavior = :apply_to_host_groups
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
@@ -36,4 +38,8 @@ RSpec.configure do |config|
 
   config.include ActiveSupport::Testing::TimeHelpers
   config.include FactoryBot::Syntax::Methods
+
+  Kernel.srand config.seed
+
+  config.after { Telegram.bot.reset }
 end
