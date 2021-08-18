@@ -1,2 +1,8 @@
 RSpec/ImplicitSubject:
   EnforcedStyle: single_statement_only
+
+RSpec/AnyInstance:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Max: 5

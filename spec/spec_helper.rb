@@ -14,6 +14,7 @@ require 'telegram/bot/updates_controller/rspec_helpers'
 WebMock.disable_net_connect!
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec/shared_contexts/**/*.rb')].each { |f| require f }
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

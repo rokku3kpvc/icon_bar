@@ -39,3 +39,5 @@ public/uploads/
 k8s/helm/secrets/*
 
 /config/credentials/test.key
+
+/config/credentials/development.key

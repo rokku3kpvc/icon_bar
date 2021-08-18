@@ -20,6 +20,8 @@ gem 'redis'
 # -- Attachments & Extensions -- #
 # Effortless multi-environment settings in Rails, Sinatra, Pandrino and others (https://github.com/rubyconfig/config)
 gem 'config'
+# Virtus types for Telegram Bot API (https://github.com/telegram-bot-rb/telegram-bot-types)
+gem 'telegram-bot-types'
 
 group :development, :test do
   # -- Console and Debugging -- #
@@ -60,12 +62,6 @@ group :development, :test do
 end
 
 group :development do
-  # -- Listener and Preloader -- #
-  # Listen to file modifications (https://github.com/guard/listen)
-  gem 'listen'
-  # Rails application preloader (https://github.com/rails/spring)
-  gem 'spring'
-
   # -- Linter -- #
   # Automatic Ruby code style checking tool. (https://github.com/rubocop/rubocop)
   gem 'rubocop', require: false
