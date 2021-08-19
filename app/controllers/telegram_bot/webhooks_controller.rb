@@ -12,8 +12,15 @@ module TelegramBot
     end
 
     def message(payload)
+      # TODO: научиться разделять админ команды
       command = handle_message(payload.text)
       method(command).call
+    end
+
+    def callback_query(data)
+      data = CallbackData.new(data)
+      # TODO: научиться разделять админ команды
+      method(data.command).call
     end
   end
 end

@@ -13,7 +13,7 @@ class CommandsStorage
 
   def initialize
     @commands_map = {}
-    @commands_map[I18n.t('telegram_bot.texts.show_admin_menu')] = :admin_panel
+    @commands_map[I18n.t('telegram_bot.texts.show_admin_menu')] = Commands::ADMIN_PANEL
   end
 
   def find_command_by_key(key)

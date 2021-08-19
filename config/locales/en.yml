@@ -8,14 +8,17 @@ en:
     buttons:
       admin:
         - [ "⚙️ Админ панель" ]
-    admin_menu:
-      - [ { text: "🖍 Управлять барной картой", callback_data: 'manage_carte' } ]
-      - [ { text: "🖌 Управлять депозитами", callback_data: 'manage_deposits' } ]
-      - [ { text: "📈 Запросить отчётность", callback_data: 'call_reports' } ]
+#    admin_menu:
+#      - [ { text: "🖍 Управлять барной картой", callback_data: "{\"command\":\"manage_carte\"}" } ]
+#      - [ { text: "🖌 Управлять депозитами", callback_data: "{\"command\":\"manage_deposits\"}" } ]
+#      - [ { text: "📈 Запросить отчётность", callback_data: "{\"command\":\"call_reports\"}" } ]
     main_menu:
       - [ "🧾 Создать чек" ]
       - [ "📝 Выдать чек на депозит" ]
       - [ "📖 Барная карта" ]
+#    admin_product_menu:
+#      - [ { text: "🔧 Редактировать", callback_data: "{\"command\":\"edit_product\",\"data\":{\"id\":\"%{id}\"}}" } ]
+#      - [ { text: "❌ Удалить", callback_data: "{\"command\":\"destroy_product\",\"data\":{\"id\":\"%{id}\"}}" } ]
 
     webhooks:
       ping:

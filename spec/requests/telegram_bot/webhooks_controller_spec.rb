@@ -30,4 +30,28 @@ describe TelegramBot::WebhooksController, :telegram_bot do
       expect(&ping).to respond_with_message 'Pong!'
     end
   end
+
+  describe '#message' do
+    describe 'admin_panel' do
+      subject(:admin_panel) { -> { dispatch_message '⚙️ Админ панель' } }
+
+      it 'responds with admin menu' do
+        expect(&admin_panel).to respond_with_message '⚙️ Админ панель'
+        expect(inline_keyboard.size).to eq(3)
+      end
+    end
+  end
+
+  describe '#callback_query', :callback_query do
+    let(:data) { { command: command, data: callback_data.to_json }.to_json }
+
+    describe 'manage_carte' do
+      let(:command) { 'manage_carte' }
+      let(:callback_data) { {} }
+      let!(:product) { create(:product) }
+
+      it { is_expected.to respond_with_message '⬇️⬇️ Барная карта ⬇️⬇️' }
+      it { is_expected.to respond_with_message "Категория: #{product.category.name}\nНаименование: #{product.name}\nЦена: #{product.price}₽" }
+    end
+  end
 end

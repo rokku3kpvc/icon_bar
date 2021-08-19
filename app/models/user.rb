@@ -21,7 +21,7 @@ end
 # Table name: users
 #
 #  id                      :bigint           not null, primary key
-#  telegram_id             :bigint           not null
+#  telegram_id             :bigint           not null, indexed
 #  is_bot                  :boolean          default(FALSE), not null
 #  first_name              :string
 #  last_name               :string
@@ -30,4 +30,8 @@ end
 #  supports_inline_queries :boolean
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#
+# Indexes
+#
+#  index_users_on_telegram_id  (telegram_id) UNIQUE
 #
