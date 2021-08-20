@@ -20,5 +20,7 @@ module IconBar
     config.time_zone = 'Europe/Moscow'
     config.eager_load_paths += %w[lib]
     config.active_record.schema_format = :sql
+
+    config.telegram_updates_controller.session_store = :redis_store, { expires_in: 1.month }
   end
 end

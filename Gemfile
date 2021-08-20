@@ -16,8 +16,11 @@ gem 'pg'
 gem 'puma', '~> 5.0'
 # A Ruby client library for Redis (https://github.com/redis/redis-rb)
 gem 'redis'
+# Redis for Ruby on Rails (http://redis-store.org/redis-rails)
+gem 'redis-rails'
 
 # -- Attachments & Extensions -- #
+gem 'aasm'
 # Effortless multi-environment settings in Rails, Sinatra, Pandrino and others (https://github.com/rubyconfig/config)
 gem 'config'
 # Virtus types for Telegram Bot API (https://github.com/telegram-bot-rb/telegram-bot-types)

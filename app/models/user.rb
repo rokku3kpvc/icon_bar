@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :orders, dependent: :destroy
+
   def self.create_from_payload(payload)
     create(
       telegram_id: payload.id,
@@ -8,6 +10,15 @@ class User < ApplicationRecord
       username: payload.username,
       language_code: payload.language_code,
       supports_inline_queries: payload.supports_inline_queries
+    )
+  end
+
+  def create_empty_order(kind, deposit_id = nil)
+    orders.create(
+      total_price: 0,
+      kind: kind,
+      state: 'opened',
+      deposit_id: deposit_id
     )
   end
 

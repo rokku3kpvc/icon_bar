@@ -8,6 +8,7 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 
 require 'webmock/rspec'
 require 'rspec/rails'
+require 'fakeredis/rspec'
 require 'telegram/bot/rspec/integration/rails'
 require 'telegram/bot/updates_controller/rspec_helpers'
 

@@ -1,5 +1,7 @@
 class Product < ApplicationRecord
   belongs_to :category
+  has_many :order_items, dependent: :destroy
+  has_many :orders, through: :order_items
 
   def to_inline_response
     {
@@ -11,6 +13,25 @@ class Product < ApplicationRecord
         ]
       }
     }
+  end
+
+  def to_order_up_button(current_order)
+    amount = current_order.order_items.where(product_id: id).count
+
+    [{
+      text: "(#{amount}) #{name}", callback_data: { command: Commands::APPEND_PRODUCT, data: { product_id: id } }.to_json
+    }]
+  end
+
+  def to_order_down_buttons
+    [
+      {
+        text: '◀️', callback_data: { command: Commands::REDUCE_PRODUCT, data: { product_id: id } }.to_json
+      },
+      {
+        text: '▶️️', callback_data: { command: Commands::APPEND_PRODUCT, data: { product_id: id } }.to_json
+      }
+    ]
   end
 
   private

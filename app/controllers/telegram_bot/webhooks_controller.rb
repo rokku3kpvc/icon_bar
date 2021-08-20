@@ -17,10 +17,11 @@ module TelegramBot
       method(command).call
     end
 
+    # TODO: разделить callback_query в context. https://github.com/telegram-bot-rb/telegram-bot#callback-queries
     def callback_query(data)
       data = CallbackData.new(data)
       # TODO: научиться разделять админ команды
-      method(data.command).call
+      method(data.command).call(data)
     end
   end
 end

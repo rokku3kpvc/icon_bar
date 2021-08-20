@@ -14,6 +14,8 @@ class CommandsStorage
   def initialize
     @commands_map = {}
     @commands_map[I18n.t('telegram_bot.texts.show_admin_menu')] = Commands::ADMIN_PANEL
+    @commands_map[I18n.t('telegram_bot.texts.create_order')] = Commands::NEW_ORDER
+    @commands_map[I18n.t('telegram_bot.texts.show_carte')] = Commands::SHOW_CARTE
   end
 
   def find_command_by_key(key)

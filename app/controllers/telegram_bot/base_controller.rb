@@ -1,8 +1,12 @@
 module TelegramBot
   class BaseController < Telegram::Bot::UpdatesController
     include Telegram::Bot::UpdatesController::TypedUpdate
+    include Telegram::Bot::UpdatesController::MessageContext
+    include CallbackQueryContext
     include Authentication
 
-    before_action :authenticate_user
+    cattr_reader :redis, default: Containers.redis
+
+    before_action :authenticate_user, :current_order
   end
 end

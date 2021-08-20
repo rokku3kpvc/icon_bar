@@ -41,3 +41,15 @@ Style/FrozenStringLiteralComment:
 
 Style/AsciiComments:
   Enabled: false
+
+Metrics/MethodLength:
+  Max: 20
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
