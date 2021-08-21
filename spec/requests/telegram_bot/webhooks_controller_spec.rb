@@ -10,15 +10,15 @@ describe TelegramBot::WebhooksController, :telegram_bot do
       end
 
       it 'responds with main menu' do
-        expect(&start).to respond_with_message 'Главное меню'
-        expect(keyboard.size).to eq(4)
+        expect(&start).to respond_with_message I18n.t('telegram_bot.texts.main_menu_info')
+        expect(keyboard.size).to eq(3)
       end
     end
 
     context 'when user is not admin' do
       it 'responds with main and admin menu' do
-        expect(&start).to respond_with_message 'Главное меню'
-        expect(keyboard.size).to eq(3)
+        expect(&start).to respond_with_message I18n.t('telegram_bot.texts.main_menu_info')
+        expect(keyboard.size).to eq(2)
       end
     end
   end
@@ -37,7 +37,7 @@ describe TelegramBot::WebhooksController, :telegram_bot do
 
       it 'responds with admin menu' do
         expect(&admin_panel).to respond_with_message '⚙️ Админ панель'
-        expect(inline_keyboard.size).to eq(3)
+        expect(inline_keyboard.size).to eq(1)
       end
     end
   end
