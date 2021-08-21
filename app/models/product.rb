@@ -1,4 +1,5 @@
 class Product < ApplicationRecord
+  # TODO: в отчете используется group by по имени, что означает, что все имена должны быть уникальны. подумать над этим
   belongs_to :category
   has_many :order_items, dependent: :destroy
   has_many :orders, through: :order_items

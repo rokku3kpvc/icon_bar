@@ -17,7 +17,8 @@ module IconBar
     config.i18n.default_locale = :en
     config.i18n.fallbacks = true
     config.api_only = true
-    config.time_zone = 'Europe/Moscow'
+    # config.time_zone = 'Europe/Moscow'
+    config.time_zone = 'Asia/Yekaterinburg'
     config.eager_load_paths += %w[lib]
     config.active_record.schema_format = :sql
 

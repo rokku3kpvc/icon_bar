@@ -43,6 +43,13 @@ module TelegramBot
 
     # == INLINE KEYBOARD COMMANDS ==
 
+    def generate_report(_callback_data)
+      text_report = OrderReport.new.generate
+
+      respond_with :message, text: text_report, parse_mode: :Markdown
+      answer_callback_ok
+    end
+
     def return_to_category_list(_callback_data)
       delete_last_message
       new_order

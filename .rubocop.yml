@@ -53,3 +53,9 @@ Style/GuardClause:
 
 Metrics/AbcSize:
   Enabled: false
+
+Lint/MissingSuper:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Max: 200
