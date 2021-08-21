@@ -9,3 +9,6 @@ Rails/RakeEnvironment:
 
 Rails/NotNullColumn:
   Enabled: false
+
+Rails/Output:
+  Enabled: false
