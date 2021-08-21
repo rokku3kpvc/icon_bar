@@ -9,6 +9,17 @@ set :keep_releases, 5
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', '.bundle', 'public/system', 'public/uploads'
 append :linked_files, 'config/credentials/production.key', 'config/database.yml'
 
+namespace :telegram_bot do
+  desc 'Starts a bot poller'
+  task :start_poller do
+    on roles(:app) do
+      execute '$HOME/.rbenv/bin/rbenv exec bundle exec rails telegram:bot:poller'
+    end
+  end
+end
+
+after 'deploy:symlink:release', 'telegram_bot:start_poller'
+
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
