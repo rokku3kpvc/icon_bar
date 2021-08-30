@@ -5,20 +5,22 @@ set :application, 'icon_bar'
 set :repo_url, 'git@github.com:rokku3kpvc/icon_bar.git'
 set :deploy_to, "/home/deploy/#{fetch :application}"
 set :keep_releases, 5
+set :pty, true
 
-append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', '.bundle', 'public/system', 'public/uploads'
+append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'tmp/session_store', 'vendor/bundle', '.bundle', 'public/system', 'public/uploads'
 append :linked_files, 'config/credentials/production.key', 'config/database.yml'
 
 namespace :telegram_bot do
   desc 'Starts a bot poller'
   task :start_poller do
     on roles(:app) do
-      execute '$HOME/.rbenv/bin/rbenv exec bundle exec rails telegram:bot:poller'
+      execute("nohup sh -c 'cd #{release_path} && bundle exec rake telegram:bot:poller RAILS_ENV=production &' > /dev/null 2>&1")
     end
   end
 end
 
-after 'deploy:symlink:release', 'telegram_bot:start_poller'
+# TODO: добиться нормального запуска поллера в фоне
+# after 'deploy:symlink:release', 'telegram_bot:start_poller'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp

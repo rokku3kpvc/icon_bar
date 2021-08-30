@@ -1,56 +1,23 @@
-# писать период отчета и его ID |
-# сколько всего заказов |
-# на какую сумму |
-# самый большой заказ |
-# средняя стоимость заказа |
-# полный список товаров и скок было продано (писать даже если 0, сортировка по убыванию) |
-# список тех, кто создавал отчеты с количествов по убыванию |
-# диапазон от 00:00 субботы до 23:59 воскресенья. при запросе показывать последнюю субботу |
-#
-#     # icon_bar=# SELECT COUNT(*) AS count_all, "products"."name" AS products_name FROM "products" INNER JOIN "order_items" ON
-#     # "products"."id" = "order_items"."product_id" WHERE "order_items"."order_id" IN (1,2,3,4,5,7,8,10) GROUP BY "products"."name";
-#     #  count_all |     products_name
-#     # -----------+------------------------
-#     #          1 | 🌶 Табаско Шот
-#     #          2 | 🥃 Лонг Айленд
-#     #          1 | 🍋 Грейпфрут сплэш
-#     #          1 | 🍭 Карамельное Яблоко
-#     #          1 | 🥒 Джин Тоник с Огурцом
-#     #          3 | 🥒 Огуречная
-#     #          1 | 🍓 Ягодная
-#     #          1 | 🍶 Водка
-#     #          2 | 🍋 Лимончело
-#     #          1 | 🍫 Шоколадная
-#     #
-#     #     #icon_bar=# SELECT COUNT(*) AS count_all, "users"."first_name" AS first_name FROM "orders" LEFT OUTER JOIN "users"
-#     #     # ON "users"."id" = "orders"."user_id" WHERE "orders"."state" = 'confirmed' GROUP BY "users"."first_name";
-#     #     #  count_all |   first_name
-#     #     # -----------+----------------
-#     #     #          1 | Adelina
-#     #     #          1 | Elvine
-#     #     #          2 | Ni
-#     #     #          2 | pridumaisam.og
-#     #     #          1 | Дрейк
-#     #     #          1 | Егор
-#     #     # (6 строк)
 # TODO: пистаь отчеты в БД и доставать их оттуда
 # TODO: добавить самую продаваемую позицию
+# TODO: подумать над передачей временного диапазона генерации отчета в качестве аргумента
 class OrderReport
   attr_reader :items
 
   def initialize
-    @from = Utils::Calendar.saturday
-    # @from = Time.zone.now - 5.days
-    @till = (@from + 1.day).end_of_day
-    # @till = Time.zone.now + 1.day
+    # TODO: пока временно поставлю отчеты на пн-вт и вт-ср. к субботе нужно будет поменять
+    @from = (Time.zone.now.beginning_of_day - 1.day) + 12.hours
+    @till = (@from + 1.day).end_of_day - 12.hours
+    # @from = Utils::Calendar.saturday
+    # @till = (@from + 1.day).end_of_day
     @items = OrderQuery.new(from: @from, till: @till).execute
   end
 
   def generate
-    total_count = items.size # 8
-    total_price = items.sum(:total_price) # 3750
-    average_price = items.average(:total_price).to_i # 468
-    max_price = items.maximum(:total_price) # 1000
+    total_count = items.size
+    total_price = items.sum(:total_price)
+    average_price = items.average(:total_price).to_i
+    max_price = items.maximum(:total_price)
 
     text_report = "📆 Отчёт о продажах\n\n"
     text_report += "⏰ Период: __#{format_time(@from)} - #{format_time(@till)}__\n\n"
@@ -76,9 +43,6 @@ class OrderReport
 
     return '' if item_ids.empty?
 
-    # query =  'SELECT COUNT(*) AS count_all, products.name FROM products '
-    # query += 'INNER JOIN order_items ON products.id = order_items.product_id '
-    # query += "WHERE order_items.order_id IN (#{item_ids.join(',')}) GROUP BY products.name ORDER BY count_all DESC;"
     query =  'SELECT products.name, categories.name, COUNT(*) AS count_all FROM products '
     query += 'INNER JOIN order_items ON products.id = order_items.product_id '
     query += 'LEFT OUTER JOIN categories ON categories.id = products.category_id '
@@ -86,7 +50,6 @@ class OrderReport
     query += "WHERE order_items.order_id IN (#{item_ids.join(',')}) "
     query += 'GROUP BY products.name, categories.name ORDER BY count_all DESC;'
 
-    # .map { |v| "#{v.second} - #{v.first} шт.\n" }
     ActiveRecord::Base.connection.execute(query)
                       .values
                       .map { |v| "#{v.first} (__#{v.second}__) - **#{v.third} шт.**\n" }

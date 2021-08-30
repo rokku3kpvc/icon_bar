@@ -2,7 +2,7 @@ module TelegramBot
   module RespondHelper
     include MenuStorage
 
-    # TODO: надо вынестир работу с базой, подсчеты и другую логику в отдельный DSL
+    # TODO: надо вынестир работу с базой, подсчеты и другую логику в отдельный DSL (command pattern наверн)
 
     def respond_with_main_menu(text = t('telegram_bot.texts.main_menu_info'))
       keyboard = if current_user.admin?
@@ -56,6 +56,7 @@ module TelegramBot
       answer_callback_ok
     end
 
+    # TODO: переименовать в reset_order (кнопка отмена при создании заказа)
     def return_to_main_menu(callback_data)
       current_order.reset
       return_to_category_list(callback_data)
@@ -98,11 +99,7 @@ module TelegramBot
 
     def reduce_product(callback_data)
       product = Product.find(callback_data.data[:product_id])
-      order_item = current_order.order_items.find_by(product_id: product.id)
-
-      if order_item.present?
-        order_item.destroy
-      end
+      current_order.remove_product(product)
 
       return_to_category(callback_data, product.category_id)
     end
