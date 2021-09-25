@@ -5,11 +5,8 @@ class OrderReport
   attr_reader :items
 
   def initialize
-    # TODO: пока временно поставлю отчеты на пн-вт и вт-ср. к субботе нужно будет поменять
-    @from = (Time.zone.now.beginning_of_day - 1.day) + 12.hours
-    @till = (@from + 1.day).end_of_day - 12.hours
-    # @from = Utils::Calendar.saturday
-    # @till = (@from + 1.day).end_of_day
+    @from = Utils::Calendar.saturday
+    @till = (@from + 1.day).end_of_day
     @items = OrderQuery.new(from: @from, till: @till).execute
   end
 

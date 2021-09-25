@@ -8,6 +8,10 @@ run-poller:
 run-poller-background:
 	RAILS_ENV=$(APP_ENV) bundle exec rails telegram:bot:poller &
 
+.PHONY: kill-poller
+kill-poller:
+	kill -9 $(APP_PID)
+
 # Deploy #
 
 .PHONY: deploy-app-check
