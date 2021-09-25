@@ -5,7 +5,7 @@ class OrderReport
   attr_reader :items
 
   def initialize
-    @from = Utils::Calendar.saturday
+    @from = Utils::Calendar.saturday + 12.hours
     @till = (@from + 1.day).end_of_day
     @items = OrderQuery.new(from: @from, till: @till).execute
   end
